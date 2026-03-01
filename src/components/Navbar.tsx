@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { type FormEvent, useEffect, useRef, useState } from "react";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useTheme } from "../context/useTheme";
 
 // MUI Icons
@@ -8,10 +8,34 @@ import { Close, GitHub, Menu } from "@mui/icons-material";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import SearchIcon from "@mui/icons-material/Search";
+import { config } from "../config/env.config";
 
-const Navbar = () => {
+const Navbar: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
-  const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
+  const [searchValue, setSearchValue] = useState<string>(
+    searchParams.get("title") || "",
+  );
+
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (isSearchOpen) {
+      inputRef.current?.focus();
+    }
+  }, [isSearchOpen]);
+
+  const handleSearchSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    if (searchValue.trim()) {
+      navigate(`/search?title=${encodeURIComponent(searchValue.trim())}`);
+      setIsSearchOpen(false);
+    }
+  };
 
   return (
     <motion.header
@@ -19,65 +43,111 @@ const Navbar = () => {
       animate={{ y: 0, opacity: 1 }}
       className="sticky top-0 z-50 border-b border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-black/80 backdrop-blur-md"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-        {/* MOBILE MENU BUTTON (LEFT) */}
-        <div className="flex md:hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between relative">
+        <div className="flex items-center gap-4 flex-1">
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="text-neutral-700 dark:text-neutral-200"
+            className="md:hidden text-neutral-700 dark:text-neutral-200 p-1"
           >
             {isOpen ? <Close /> : <Menu />}
           </button>
+
+          <div className="hidden md:flex items-center">
+            <AnimatePresence mode="wait">
+              {!isSearchOpen ? (
+                <motion.button
+                  key="search-btn"
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -10 }}
+                  onClick={() => setIsSearchOpen(true)}
+                  className="text-neutral-700 dark:text-neutral-200 hover:text-blue-600 transition-colors"
+                >
+                  <SearchIcon />
+                </motion.button>
+              ) : (
+                <motion.form
+                  key="search-form"
+                  initial={{ width: 0, opacity: 0 }}
+                  animate={{ width: 300, opacity: 1 }}
+                  exit={{ width: 0, opacity: 0 }}
+                  onSubmit={handleSearchSubmit}
+                  className="flex items-center relative"
+                >
+                  <input
+                    ref={inputRef}
+                    type="text"
+                    value={searchValue}
+                    onChange={(e) => setSearchValue(e.target.value)}
+                    placeholder="Search headlines..."
+                    className="w-full bg-neutral-100 dark:bg-neutral-900 border-none rounded-full py-1.5 pl-4 pr-10 text-sm focus:ring-2 focus:ring-blue-600/20 outline-none"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setIsSearchOpen(false)}
+                    className="absolute right-3 text-neutral-400 hover:text-neutral-600 dark:hover:text-white"
+                  >
+                    <Close sx={{ fontSize: 16 }} />
+                  </button>
+                </motion.form>
+              )}
+            </AnimatePresence>
+          </div>
         </div>
 
-        {/* SEARCH (DESKTOP ONLY LEFT) */}
-        <div className="hidden md:flex items-center gap-6 text-neutral-700 dark:text-neutral-200">
-          <button className="hover:opacity-70 transition">
-            <SearchIcon fontSize="medium" />
-          </button>
-        </div>
-
-        {/* CENTER LOGO - Responsive Scaling */}
-        <div className="md:absolute md:left-1/2 md:-translate-x-1/2">
+        <div className="absolute left-1/2 -translate-x-1/2">
           <Link
             to="/"
-            className="font-title text-lg md:text-xl tracking-widest hover:scale-105 transition-transform duration-200 block"
+            className="font-title text-lg md:text-xl tracking-[0.2em] hover:scale-105 transition-transform duration-200 block whitespace-nowrap"
           >
             THE REACT <span className="text-blue-600">NEWS</span>
           </Link>
         </div>
 
-        {/* RIGHT CONTROLS */}
-        <div className="flex items-center gap-3 sm:gap-6 text-neutral-700 dark:text-neutral-200">
-          <button className="hidden sm:block hover:opacity-70 transition">
+        <div className="flex items-center justify-end gap-3 sm:gap-6 flex-1 text-neutral-700 dark:text-neutral-200">
+          <a
+            href={config.githubUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="hidden sm:block hover:text-blue-600 transition-colors"
+          >
             <GitHub />
-          </button>
-          <span className="hidden sm:block opacity-30">|</span>
-          <button onClick={toggleTheme} className="hover:opacity-70 transition">
+          </a>
+          <span className="hidden sm:block opacity-20">|</span>
+          <button
+            onClick={toggleTheme}
+            className="hover:text-blue-600 transition-colors"
+          >
             {theme === "light" ? <DarkModeIcon /> : <LightModeIcon />}
           </button>
-          {/* Mobile Search Icon */}
-          <button className="md:hidden hover:opacity-70 transition">
+
+          <button
+            onClick={() => setIsSearchOpen(!isSearchOpen)}
+            className="md:hidden hover:text-blue-600 transition-colors"
+          >
             <SearchIcon />
           </button>
         </div>
       </div>
 
-      {/* MOBILE DROPDOWN MENU */}
       <AnimatePresence>
-        {isOpen && (
+        {isSearchOpen && (
           <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            className="md:hidden overflow-hidden bg-white dark:bg-black border-b border-neutral-200 dark:border-neutral-800"
+            initial={{ height: 0 }}
+            animate={{ height: "auto" }}
+            exit={{ height: 0 }}
+            className="md:hidden overflow-hidden border-t border-neutral-100 dark:border-neutral-900 bg-white dark:bg-black"
           >
-            <div className="flex flex-col p-6 gap-4 font-title tracking-widest text-sm">
-              <div className="pt-4 border-t border-neutral-100 dark:border-neutral-900 flex gap-4">
-                <GitHub />
-                <span>GITHUB</span>
-              </div>
-            </div>
+            <form onSubmit={handleSearchSubmit} className="p-4">
+              <input
+                type="text"
+                autoFocus
+                value={searchValue}
+                onChange={(e) => setSearchValue(e.target.value)}
+                placeholder="Search..."
+                className="w-full bg-neutral-100 dark:bg-neutral-900 rounded-lg px-4 py-2 text-sm outline-none border border-transparent focus:border-blue-600"
+              />
+            </form>
           </motion.div>
         )}
       </AnimatePresence>

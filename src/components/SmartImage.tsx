@@ -7,7 +7,7 @@ interface SmartImageProps {
   alt: string;
   containerClassName?: string;
   imageClassName?: string;
-  aspectRatio?: "video" | "square" | "portrait" | "wide"; // New helper
+  aspectRatio?: "video" | "square" | "portrait" | "wide";
 }
 
 const SmartImage = ({

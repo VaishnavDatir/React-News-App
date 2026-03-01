@@ -19,11 +19,8 @@ const CategoryTabs = () => {
   };
 
   return (
-    // Changed top-4 to sticky top-16 to sit under the Navbar
     <div className="top-16 z-40 bg-white/95 dark:bg-black/95 backdrop-blur-sm border-b border-neutral-200 dark:border-neutral-800">
       <div className="max-w-7xl mx-auto relative">
-        {/* Gradients ... */}
-
         <div className="flex items-center gap-6 sm:gap-8 lg:gap-12 px-6 sm:px-8 overflow-x-auto whitespace-nowrap scrollbar-hide py-4 sm:py-5">
           {categories.map((category) => (
             <button

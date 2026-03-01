@@ -17,7 +17,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate(`/article/${encodeURIComponent(article.url)}`, {
+    navigate(`/article/${encodeURIComponent(article.title)}`, {
       state: article,
     });
   };

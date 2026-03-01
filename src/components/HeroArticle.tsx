@@ -11,7 +11,7 @@ const HeroArticle = ({ article }: Props) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate(`/article/${encodeURIComponent(article.url)}`, {
+    navigate(`/article/${encodeURIComponent(article.title)}`, {
       state: article,
     });
   };
@@ -24,7 +24,6 @@ const HeroArticle = ({ article }: Props) => {
       onClick={handleClick}
       className="cursor-pointer group flex flex-col"
     >
-      {/* Container with responsive aspect ratio */}
       <div className="overflow-hidden rounded-2xl sm:rounded-3xl shadow-lg border border-neutral-100 dark:border-neutral-900">
         <SmartImage
           src={article.urlToImage ?? ""}
@@ -44,7 +43,6 @@ const HeroArticle = ({ article }: Props) => {
           </span>
         </div>
 
-        {/* Responsive Text Sizes */}
         <h2
           className="font-title text-2xl sm:text-4xl md:text-5xl lg:text-6xl 
                        leading-[1.1] tracking-tight group-hover:text-blue-600 
