@@ -1,53 +1,131 @@
 # THE REACT NEWS
 
-## PROJECT OVERVIEW
-A high-performance news aggregator built with React 19, TanStack Query, and Framer Motion. THE REACT NEWS provides a seamless, immersive reading experience with real-time headlines and dynamic categorization.
+## Project Overview
 
-## KEY FEATURES
-* Modern Metadata: Leveraging React 19's native document metadata hoisting for SEO-ready page titles.
-* Smart Data Fetching: Powered by TanStack Query for aggressive caching, "stale-while-revalidate" logic, and zero-flicker transitions.
-* Layout: A sophisticated grid system that intelligently chunks news into sections with featured hero articles.
-* Adaptive Theme: Deeply integrated Dark and Light modes using Tailwind CSS and React Context.
-* Fluid Navigation: Animated category tabs with smart-centering logic and layout-id transitions via Framer Motion.
-* Global Search: Real-time headline filtering with a reactive search interface and dedicated result views.
+**THE REACT NEWS** is a high-performance news aggregator built with
+**React 19**, **TanStack Query**, and **Framer Motion**.\
+The application delivers a seamless and immersive reading experience
+with real-time headlines, intelligent categorization, and smooth UI
+transitions.
 
-## TECH STACK
-* Framework: React 19 + Vite
-* State Management: TanStack Query
-* Styling: Tailwind CSS
-* Animations: Framer Motion
-* Icons: Material UI (MUI) Icons
-* API Client: Axios
+------------------------------------------------------------------------
+
+## Key Features
+
+### Modern Metadata
+
+Leverages React 19's native document metadata hoisting to generate
+dynamic, SEO-friendly page titles.
+
+### Smart Data Fetching
+
+Powered by TanStack Query with: - Aggressive caching -
+Stale-while-revalidate strategy - Zero-flicker UI transitions
+
+### Intelligent Layout System
+
+A structured grid system that organizes news into clean sections with
+featured hero articles.
+
+###  Adaptive Theme
+
+Fully integrated Dark and Light modes using Tailwind CSS and React
+Context.
+
+### Fluid Navigation
+
+-   Animated category tabs\
+-   Smart-centering logic\
+-   layoutId transitions powered by Framer Motion
+
+###  Global Search
+
+Real-time headline filtering with a reactive search interface and
+dedicated result views.
+
+------------------------------------------------------------------------
+
+## Tech Stack
+
+* Framework: React 19 + Vite 
+* State Management: TanStack Query 
+* Styling: Tailwind CSS 
+* Animations: Framer Motion 
+* Icons: Material UI (MUI) Icons 
+* API Client: Axios 
 * Routing: React Router
+------------------------------------------------------------------------
 
-## INSTALLATION & SETUP
-1. Clone the repository:
-   git clone https://github.com/VaishnavDatir/React-News-App
-   cd React-News-App
+## Installation & Setup
 
-2. Install dependencies:
-   npm install
+### Clone the Repository
 
-3. Environment Configuration:
-   Create a .env file in the root directory and add your NewsAPI credentials:
-   VITE_NEWS_API_KEY=your_api_key_here
-   VITE_NEWS_BASE_URL=https://newsapi.org/v2
+``` bash
+git clone https://github.com/VaishnavDatir/React-News-App
+cd React-News-App
+```
 
-4. Start Development Server:
-   npm run dev
+### Install Dependencies
 
-## PROJECT STRUCTURE
-src/
-|-- app/         # Root App component and styles
-|-- components/  # Atomic UI components (Cards, Navbar, etc.)
-|-- config/      # Environment & Global configurations
-|-- hooks/       # Custom TanStack Query hooks
-|-- services/    # API Client (Axios) definitions
-|-- layouts/     # MainLayout and nested route wrappers
-|-- pages/       # View-level components (Home, Search, Category)
-|-- types/       # TypeScript interfaces and news models
+``` bash
+npm install
+```
 
-## API ARCHITECTURE
-The project follows a Service-Hook Pattern to decouple UI from network logic:
-* Services: newsService.ts handles raw Axios requests and header security.
-* Hooks: useNews.ts manages query keys, stale times, and caching logic.
+### Environment Configuration
+
+Create a `.env` file in the root directory and add your NewsAPI
+credentials:
+
+``` env
+VITE_NEWS_API_KEY=your_api_key_here
+VITE_NEWS_BASE_URL=https://newsapi.org/v2
+```
+
+### Start Development Server
+
+``` bash
+npm run dev
+```
+
+------------------------------------------------------------------------
+
+## Project Structure
+
+    src/
+    │
+    ├── app/         Root App component
+    ├── components/  Reusable atomic UI components (Cards, Navbar, etc.)
+    ├── config/      Environment variables and global configurations
+    ├── hooks/       Custom TanStack Query hooks
+    ├── services/    API client definitions (Axios setup)
+    ├── layouts/     MainLayout and nested route wrappers
+    ├── pages/       View-level components (Home, Search, Category)
+    └── types/       TypeScript interfaces and news models
+
+------------------------------------------------------------------------
+
+## API Architecture
+
+The project follows a **Service--Hook Pattern** to ensure clean
+separation of concerns and scalability.
+
+### Services Layer
+
+`newsService.ts`\
+Handles: - Raw Axios requests\
+- Base configuration\
+- Header security
+
+### Hooks Layer
+
+`useNews.ts`\
+Manages: - Query keys\
+- Stale times\
+- Caching strategy\
+- UI data orchestration
+
+------------------------------------------------------------------------
+
+##  Author
+
+#### **Vaishnav Datir**
