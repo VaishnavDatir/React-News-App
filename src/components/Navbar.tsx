@@ -34,6 +34,7 @@ const Navbar: React.FC = () => {
     if (searchValue.trim()) {
       navigate(`/search?title=${encodeURIComponent(searchValue.trim())}`);
       setIsSearchOpen(false);
+      setSearchValue("");
     }
   };
 
@@ -84,7 +85,10 @@ const Navbar: React.FC = () => {
                   />
                   <button
                     type="button"
-                    onClick={() => setIsSearchOpen(false)}
+                    onClick={() => {
+                      setIsSearchOpen(false);
+                      setSearchValue("");
+                    }}
                     className="absolute right-3 text-neutral-400 hover:text-neutral-600 dark:hover:text-white"
                   >
                     <Close sx={{ fontSize: 16 }} />
@@ -98,6 +102,10 @@ const Navbar: React.FC = () => {
         <div className="absolute left-1/2 -translate-x-1/2">
           <Link
             to="/"
+            onClick={() => {
+              setIsSearchOpen(false);
+              setSearchValue("");
+            }}
             className="font-title text-lg md:text-xl tracking-[0.2em] hover:scale-105 transition-transform duration-200 block whitespace-nowrap"
           >
             THE REACT <span className="text-blue-600">NEWS</span>
@@ -116,11 +124,17 @@ const Navbar: React.FC = () => {
           <span className="hidden sm:block opacity-20">|</span>
           <button
             onClick={toggleTheme}
-            className="hover:text-blue-600 transition-colors"
+            className="hover:text-blue-600 transition-colors p-2"
           >
-            {theme === "light" ? <DarkModeIcon /> : <LightModeIcon />}
+            <motion.div
+              key={theme}
+              initial={{ rotate: -90, opacity: 0 }}
+              animate={{ rotate: 0, opacity: 1 }}
+              transition={{ duration: 0.3 }}
+            >
+              {theme === "light" ? <DarkModeIcon /> : <LightModeIcon />}
+            </motion.div>
           </button>
-
           <button
             onClick={() => setIsSearchOpen(!isSearchOpen)}
             className="md:hidden hover:text-blue-600 transition-colors"

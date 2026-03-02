@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 const NotFound: React.FC = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-[75vh] px-6 text-center">
+      <title>THE REACT NEWS | 404</title>
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}

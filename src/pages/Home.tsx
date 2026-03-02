@@ -1,15 +1,38 @@
 import ArticleCard from "../components/ArticleCard";
 import CategoryTabs from "../components/CategoryTabs";
 import HeroArticle from "../components/HeroArticle";
-import { dummyNews } from "../data/dummyNews";
+import { useNewsCategory } from "../hooks/useNews";
 
 const Home = () => {
-  const articles = dummyNews.articles;
+  const { data, isLoading, isError } = useNewsCategory("general");
 
-  // Layout Logic
+  const articles = data?.articles || [];
+
   const hero = articles[0];
   const topSidebar = articles.slice(1, 5);
   const remaining = articles.slice(5);
+
+  if (isLoading) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-4">
+        <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
+        <p className="text-neutral-500 font-medium animate-pulse">
+          Fetching latest news...
+        </p>
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className="py-20 text-center">
+        <h2 className="text-2xl font-bold text-red-500">Oops!</h2>
+        <p className="text-neutral-500">
+          Failed to load news. Check your connection.
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-12 sm:space-y-20 pb-20">

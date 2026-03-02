@@ -1,73 +1,53 @@
-# React + TypeScript + Vite
+# THE REACT NEWS
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## PROJECT OVERVIEW
+A high-performance news aggregator built with React 19, TanStack Query, and Framer Motion. THE REACT NEWS provides a seamless, immersive reading experience with real-time headlines and dynamic categorization.
 
-Currently, two official plugins are available:
+## KEY FEATURES
+* Modern Metadata: Leveraging React 19's native document metadata hoisting for SEO-ready page titles.
+* Smart Data Fetching: Powered by TanStack Query for aggressive caching, "stale-while-revalidate" logic, and zero-flicker transitions.
+* Layout: A sophisticated grid system that intelligently chunks news into sections with featured hero articles.
+* Adaptive Theme: Deeply integrated Dark and Light modes using Tailwind CSS and React Context.
+* Fluid Navigation: Animated category tabs with smart-centering logic and layout-id transitions via Framer Motion.
+* Global Search: Real-time headline filtering with a reactive search interface and dedicated result views.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## TECH STACK
+* Framework: React 19 + Vite
+* State Management: TanStack Query
+* Styling: Tailwind CSS
+* Animations: Framer Motion
+* Icons: Material UI (MUI) Icons
+* API Client: Axios
+* Routing: React Router
 
-## React Compiler
+## INSTALLATION & SETUP
+1. Clone the repository:
+   git clone https://github.com/VaishnavDatir/React-News-App
+   cd React-News-App
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+2. Install dependencies:
+   npm install
 
-## Expanding the ESLint configuration
+3. Environment Configuration:
+   Create a .env file in the root directory and add your NewsAPI credentials:
+   VITE_NEWS_API_KEY=your_api_key_here
+   VITE_NEWS_BASE_URL=https://newsapi.org/v2
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+4. Start Development Server:
+   npm run dev
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## PROJECT STRUCTURE
+src/
+|-- app/         # Root App component and styles
+|-- components/  # Atomic UI components (Cards, Navbar, etc.)
+|-- config/      # Environment & Global configurations
+|-- hooks/       # Custom TanStack Query hooks
+|-- services/    # API Client (Axios) definitions
+|-- layouts/     # MainLayout and nested route wrappers
+|-- pages/       # View-level components (Home, Search, Category)
+|-- types/       # TypeScript interfaces and news models
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## API ARCHITECTURE
+The project follows a Service-Hook Pattern to decouple UI from network logic:
+* Services: newsService.ts handles raw Axios requests and header security.
+* Hooks: useNews.ts manages query keys, stale times, and caching logic.

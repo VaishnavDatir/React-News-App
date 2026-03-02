@@ -25,7 +25,7 @@ const Footer: React.FC = () => {
               to="/"
               className="font-title text-3xl tracking-[0.25em] block hover:opacity-80 transition-opacity"
             >
-              THE REACT <span className="text-blue-600 italic">NEWS</span>
+              THE REACT <span className="text-blue-600">NEWS</span>
             </Link>
             <p className="text-neutral-500 dark:text-neutral-400 text-[10px] uppercase tracking-[0.3em] font-bold">
               Typescript Edition
@@ -42,7 +42,7 @@ const Footer: React.FC = () => {
               <div className="flex items-center gap-3 text-xs text-neutral-700 dark:text-neutral-300">
                 <Code fontSize="inherit" className="text-blue-600" />
                 <span>
-                  Architected by{" "}
+                  Developed by{" "}
                   <span className="font-bold">{config.devName}</span>
                 </span>
               </div>
@@ -88,7 +88,6 @@ const Footer: React.FC = () => {
           </div>
         </div>
 
-        {/* BOTTOM: MINIMAL LEGAL & UTILITY */}
         <div className="pt-10 border-t border-neutral-100 dark:border-neutral-900 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] font-bold text-neutral-400 tracking-[0.2em] uppercase">
           <div className="flex items-center gap-6">
             <p className="opacity-60">© {currentYear} THE REACT NEWS</p>
