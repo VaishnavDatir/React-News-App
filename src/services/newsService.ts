@@ -3,7 +3,7 @@ import { config } from "../config/env.config";
 import type { NewsResponse } from "../types/news";
 
 const apiClient = axios.create({
-    baseURL: config.apiBaseUrl,
+    baseURL: "/api/v2",
     headers: {
         "X-Api-Key": config.apiKey,
     },

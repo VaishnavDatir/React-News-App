@@ -9,7 +9,7 @@ const CategoryTabs = () => {
   const active = categories.find((c) => c.path === pathname)?.id || "home";
 
   const handleCategoryClick = (
-    id: string,
+    _id: string,
     path: string,
     e: React.MouseEvent<HTMLButtonElement>,
   ) => {
